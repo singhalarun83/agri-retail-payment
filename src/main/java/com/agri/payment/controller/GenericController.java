@@ -17,7 +17,7 @@ import com.agri.payment.service.GenericService;
 
 public abstract class GenericController<T extends GenericEntity<T>> {
 
-    private final GenericService<T> service;
+    protected final GenericService<T> service;
 
     public GenericController(GenericRepository<T> repository) {
         this.service = new GenericService<T>(repository) {};

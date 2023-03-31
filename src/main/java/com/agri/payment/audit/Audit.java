@@ -2,8 +2,9 @@ package com.agri.payment.audit;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 import lombok.Data;
 
 @Embeddable

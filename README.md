@@ -1,4 +1,4 @@
-# agri-retail-payment
+# Payment
 
 Go to project root directory
 docker build -t thymeleaf-image .
