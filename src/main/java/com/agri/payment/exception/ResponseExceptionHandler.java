@@ -1,10 +1,14 @@
 package com.agri.payment.exception;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -30,6 +34,20 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
 		return new ResponseEntity<>(apiError, apiError.getStatus());
+	}
+
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+		// Get all errors
+		List<ApiSubError> errors = ex.getBindingResult().getFieldErrors().stream()
+				.map(x -> new ApiValidationError(x.getObjectName(), x.getField(), x.getRejectedValue(),
+						x.getDefaultMessage()))
+				.collect(Collectors.toList());
+		ApiError apiError = new ApiError(status, "Invalid Input", ex);
+		apiError.setSubErrors(errors);
+		return buildResponseEntity(apiError);
 	}
 
 	// other exception handlers below

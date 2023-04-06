@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -42,10 +43,12 @@ public class EVMSaleRequest implements Auditable, Serializable, GenericEntity<EV
 
 	@Embedded
 	@JsonProperty("TStream")
+	@Valid
 	private TStream tStream;
 
 	@Embedded
 	@JsonIgnore
+	@Valid
 	private Audit audit;
 
 	@Override
@@ -72,6 +75,7 @@ public class EVMSaleRequest implements Auditable, Serializable, GenericEntity<EV
 class TStream {
 	@Embedded
 	@JsonProperty("Transaction")
+	@Valid
 	private Transaction transaction;
 }
 
@@ -146,6 +150,7 @@ class Transaction {
 
 	@Embedded
 	@JsonProperty("Account")
+	@Valid
 	private Account account;
 
 	@NotNull
@@ -171,6 +176,7 @@ class Transaction {
 										// <ExpDateYear>.
 	@Embedded
 	@JsonProperty("Amount")
+	@Valid
 	private Amount amount;
 
 	@Column(name = "lane_id", nullable = true)
@@ -231,10 +237,11 @@ class Transaction {
 
 	@Embedded
 	@JsonProperty("TranInfo")
+	@Valid
 	private TranInfo tranInfo;
 
 	@Size(max = 24, min = 10)
-	@Column(name = "tran_device_id", nullable = true, length = 24)
+	@Column(name = "tran_device_id", nullable = false, length = 24)
 	@JsonProperty("TranDeviceID")
 	@ApiModelProperty(notes = "The serial number on the device (for Ingenico TETRA pads it is 24 digits). TranDeviceID must be given either in the request body or as an HTTP header. TranDeviceID is required for Server communication.", example = "123456789098765432101234", required = false)
 	private String tranDeviceId; // The serial number on the device (for Ingenico TETRA pads it is 24 digits).
