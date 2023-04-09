@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +12,7 @@ import lombok.Data;
 
 @Embeddable
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class TranInfoEMVSale {
 	@Size(max = 17, min = 1)
 	@Column(name = "tran_customer_code", nullable = true, length = 17)

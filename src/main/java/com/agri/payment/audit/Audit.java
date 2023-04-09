@@ -5,10 +5,13 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 
 @Embeddable
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Audit {
 	@Column(name = "created_on", updatable = false, nullable = false)
 	private LocalDateTime createdOn;

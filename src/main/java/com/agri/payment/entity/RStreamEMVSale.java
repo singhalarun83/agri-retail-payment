@@ -5,12 +5,14 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Embeddable
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class RStreamEMVSale {
 
 	@Column(name = "response_origin", nullable = true, length = 10)

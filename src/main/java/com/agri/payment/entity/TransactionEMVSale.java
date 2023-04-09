@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -14,6 +15,7 @@ import lombok.Data;
 
 @Embeddable
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class TransactionEMVSale {
 
 	@NotNull

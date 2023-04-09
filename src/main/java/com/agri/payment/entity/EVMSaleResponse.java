@@ -16,6 +16,7 @@ import com.agri.payment.audit.Audit;
 import com.agri.payment.audit.AuditListener;
 import com.agri.payment.audit.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -24,6 +25,7 @@ import lombok.Data;
 @Entity
 @Table(name = "evm_sale_response")
 @EntityListeners(AuditListener.class)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class EVMSaleResponse implements Auditable, Serializable, GenericEntity<EVMSaleResponse> {
 
 	private static final long serialVersionUID = 1L;

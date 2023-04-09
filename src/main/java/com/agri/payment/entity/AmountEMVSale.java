@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -14,6 +15,7 @@ import lombok.Data;
 
 @Embeddable
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class AmountEMVSale {
 	@Digits(integer = 9, fraction = 2)
 	@Column(name = "amount_purchase", nullable = true)

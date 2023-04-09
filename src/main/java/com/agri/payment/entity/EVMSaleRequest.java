@@ -1,6 +1,7 @@
 package com.agri.payment.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -145,6 +146,11 @@ public class EVMSaleRequest implements Auditable, Serializable, GenericEntity<EV
 			this.getTStream().getTransaction().setRecordNo("RecordNumberRequested");
 		if (ObjectUtils.isEmpty(this.getTStream().getTransaction().getFrequency()))
 			this.getTStream().getTransaction().setFrequency("Recurring");
+		if (ObjectUtils.isEmpty(this.getTStream().getTransaction().getAmount())) {
+			AmountEMVSale amount = new AmountEMVSale();
+			amount.setPurchase(new BigDecimal(0.0));
+			this.getTStream().getTransaction().setAmount(amount);
+		}
 	}
 
 	private void populateGiftReturn() {
