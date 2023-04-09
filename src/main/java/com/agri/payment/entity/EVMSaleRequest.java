@@ -107,12 +107,11 @@ public class EVMSaleRequest implements Auditable, Serializable, GenericEntity<EV
 					populateCardReturn();
 				}
 			} else if (tranCode.equalsIgnoreCase(TranCode.VOID.toString())) {
+				this.getTStream().getTransaction().setTranCode(TranCode.VOIDBYRECORD.getTranCode());
 				if (!ObjectUtils.isEmpty(this.getTStream().getTransaction().getTranType()) && this.getTStream()
 						.getTransaction().getTranType().equalsIgnoreCase(TranType.GIFT.getTranType())) {
-					this.getTStream().getTransaction().setTranCode(TranCode.VOID.getTranCode());
-					// Auth code needed
+					populateGiftSaleVoid();
 				} else {
-					this.getTStream().getTransaction().setTranCode(TranCode.VOIDBYRECORD.getTranCode());
 					populateCardSaleVoid();
 				}
 			} else if (tranCode.equalsIgnoreCase(TranCode.RESET.toString())) {
@@ -194,6 +193,10 @@ public class EVMSaleRequest implements Auditable, Serializable, GenericEntity<EV
 			this.getTStream().getTransaction().setFrequency("Recurring");
 		if (ObjectUtils.isEmpty(this.getTStream().getTransaction().getCardHolderId()))
 			this.getTStream().getTransaction().setCardHolderId("Allow_V2");
+	}
+
+	private void populateGiftSaleVoid() {
+		this.getTStream().getTransaction().setFrequency("OneTime");
 	}
 
 	private void populateCardSaleVoid() {
