@@ -202,11 +202,13 @@ public class EVMSaleRequest implements Auditable, Serializable, GenericEntity<EV
 	}
 
 	private void populateGiftSaleVoid() {
-		this.getTStream().getTransaction().setFrequency("OneTime");
+		if (ObjectUtils.isEmpty(this.getTStream().getTransaction().getFrequency()))
+			this.getTStream().getTransaction().setFrequency("OneTime");
 	}
 
 	private void populateCardSaleVoid() {
 		this.getTStream().getTransaction().setTranType(TranType.CREDIT.getTranType());
-		this.getTStream().getTransaction().setFrequency("OneTime");
+		if (ObjectUtils.isEmpty(this.getTStream().getTransaction().getFrequency()))
+			this.getTStream().getTransaction().setFrequency("OneTime");
 	}
 }

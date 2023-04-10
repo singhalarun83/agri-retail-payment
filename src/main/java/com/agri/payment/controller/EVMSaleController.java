@@ -1,5 +1,7 @@
 package com.agri.payment.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ public class EVMSaleController {
 	private EVMSaleService evmSaleService;
 
 	@PostMapping(path = "", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<EVMSaleResponse> create(@RequestBody EVMSaleRequest requestObj) {
+	public ResponseEntity<EVMSaleResponse> create(@Valid @RequestBody EVMSaleRequest requestObj) {
 		EVMSaleResponse response = evmSaleService.processPayment(requestObj);
 		return ResponseEntity.ok(response);
 	}
